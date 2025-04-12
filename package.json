@@ -3,36 +3,38 @@
     "version": "1.0.0",
     "description": "Gerador rápido de projetos Next.js com App Router e configurações comuns.",
     "bin": {
-        "create-raph-app": "./create.js"
+      "create-raph-app": "./create.js"
     },
+    "type": "module",
     "scripts": {},
     "dependencies": {
-        "chalk": "^5.4.1",
-        "figlet": "^1.8.1",
-        "gradient-string": "^2.0.2",
-        "inquirer": "^9.3.7",
-        "ora": "^8.2.0"
+      "chalk": "^5.4.1",
+      "figlet": "^1.8.1",
+      "gradient-string": "^2.0.2",
+      "inquirer": "^9.3.7",
+      "ora": "^8.2.0"
     },
     "engines": {
-        "node": ">=18.0.0"
+      "node": ">=18.0.0"
     },
     "keywords": [
-        "nextjs",
-        "cli",
-        "generator",
-        "scaffolding",
-        "app router",
-        "react",
-        "raph"
+      "nextjs",
+      "cli",
+      "generator",
+      "scaffolding",
+      "app router",
+      "react",
+      "raph"
     ],
-    "author": "Seu Nome <seu.email@exemplo.com>",
+    "author": "Gabriel <seu.email@exemplo.com>",
     "license": "MIT",
     "repository": {
-        "type": "git",
-        "url": "git+https://github.com/seu-usuario/create-raph-app.git"
+      "type": "git",
+      "url": "git+https://github.com/seu-usuario/create-raph-app.git"
     },
     "bugs": {
-        "url": "https://github.com/seu-usuario/create-raph-app/issues"
+      "url": "https://github.com/seu-usuario/create-raph-app/issues"
     },
     "homepage": "https://github.com/seu-usuario/create-raph-app#readme"
-}
+  }
+  

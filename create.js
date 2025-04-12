@@ -249,63 +249,62 @@ async function main() {
           dev: 'next dev',
           build: 'next build',
           start: 'next start',
-          lint: linter.toLowerCase() === 'eslint' ? 'eslint .' : 'biome check .'
+          lint: linter.toLowerCase() === 'eslint' ? 'next lint' : 'biome check .'
         },
         dependencies: { // Adiciona dependências base aqui
-          'react': '^18',
-          'react-dom': '^18',
-          'next': '^14' // Ou a versão desejada do Next.js
+          'react': 'latest',
+          'react-dom': 'latest',
+          'next': 'latest'
         },
-        devDependencies: {} // Adiciona devDependencies base aqui
+        devDependencies: {}
       };
 
       // Adiciona dependências condicionais
       if (useTailwind.toLowerCase() === 'sim') {
-        packageJson.devDependencies['tailwindcss'] = '^4'; // Ou @next se ainda for preview
-        packageJson.devDependencies['postcss'] = '^8';
-        packageJson.devDependencies['autoprefixer'] = '^10'; // Autoprefixer ainda pode ser útil
-        packageJson.devDependencies['@tailwindcss/postcss'] = 'next'; // Plugin postcss para v4
+        packageJson.devDependencies['tailwindcss'] = 'latest';
+        packageJson.devDependencies['postcss'] = 'latest';
+        packageJson.devDependencies['autoprefixer'] = 'latest';
+        packageJson.devDependencies['@tailwindcss/postcss'] = 'next';
       }
 
       if (useTRPC.toLowerCase() === 'sim') {
         Object.assign(packageJson.dependencies, {
-          '@trpc/client': '^10', // Use versões compatíveis
-          '@trpc/server': '^10',
-          '@trpc/react-query': '^10',
-          '@trpc/next': '^10',
-          '@tanstack/react-query': '^5', // Ou versão compatível
-          'zod': '^3'
+          '@trpc/client': 'latest',
+          '@trpc/server': 'latest',
+          '@trpc/react-query': 'latest',
+          '@trpc/next': 'latest',
+          '@tanstack/react-query': 'latest', 
+          'zod': 'latest'
         });
       }
 
       if (authProvider.toLowerCase() === 'nextauth') {
-        packageJson.dependencies['next-auth'] = '^4'; // Verificar compatibilidade com App Router se usar v5 beta
+        packageJson.dependencies['next-auth'] = '^4.24.11';
       }
 
       if (orm.toLowerCase() === 'prisma') {
-        packageJson.devDependencies['prisma'] = '^5'; // Ou versão mais recente
-        packageJson.dependencies['@prisma/client'] = '^5';
+        packageJson.devDependencies['prisma'] = 'latest';
+        packageJson.dependencies['@prisma/client'] = 'latest';
       }
 
       if (linter.toLowerCase() === 'eslint') {
         Object.assign(packageJson.devDependencies, {
-          'eslint': '^8',
-          'eslint-config-next': packageJson.dependencies.next // Garante compatibilidade
+          'eslint': 'latest',
+          'eslint-config-next': packageJson.dependencies.next
         });
         if (isTypescript) {
-          packageJson.devDependencies['@typescript-eslint/eslint-plugin'] = '^6'; // Exemplo
-          packageJson.devDependencies['@typescript-eslint/parser'] = '^6'; // Exemplo
+          packageJson.devDependencies['@typescript-eslint/parser'] = 'latest';
         }
       } else { // Biome
-        packageJson.devDependencies['@biomejs/biome'] = '^1'; // Ou versão mais recente
+        packageJson.devDependencies['@biomejs/biome'] = 'latest';
       }
 
       if (isTypescript) {
         Object.assign(packageJson.devDependencies, {
-          'typescript': '^5',
-          '@types/react': '^18',
-          '@types/node': '^20',
-          '@types/react-dom': '^18'
+          'typescript': 'latest',
+          '@types/react': 'latest',
+          '@types/node': 'latest',
+          '@types/react-dom': 'latest'
         });
       }
 
@@ -417,7 +416,7 @@ const config = {
   }
 };
 
-export default config;
+module.exports = config;
 `;
         // Nota: Se o Next.js não suportar postcss.config.mjs diretamente,
         // pode ser necessário manter como CJS:

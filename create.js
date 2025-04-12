@@ -251,30 +251,28 @@ async function main() {
           start: 'next start',
           lint: linter.toLowerCase() === 'eslint' ? 'next lint' : 'biome check .'
         },
-        dependencies: { // Adiciona dependências base aqui
-          'react': 'latest',
-          'react-dom': 'latest',
-          'next': 'latest'
+        dependencies: {
+          'react': '^19.0.0',
+          'react-dom': '^19.0.0',
+          'next': '^15.3.0' 
         },
         devDependencies: {}
       };
 
       // Adiciona dependências condicionais
       if (useTailwind.toLowerCase() === 'sim') {
-        packageJson.devDependencies['tailwindcss'] = 'latest';
-        packageJson.devDependencies['postcss'] = 'latest';
-        packageJson.devDependencies['autoprefixer'] = 'latest';
-        packageJson.devDependencies['@tailwindcss/postcss'] = 'next';
+        packageJson.devDependencies['tailwindcss'] = '^4';
+        packageJson.devDependencies['@tailwindcss/postcss'] = '^4';
       }
 
       if (useTRPC.toLowerCase() === 'sim') {
         Object.assign(packageJson.dependencies, {
-          '@trpc/client': 'latest',
-          '@trpc/server': 'latest',
-          '@trpc/react-query': 'latest',
-          '@trpc/next': 'latest',
-          '@tanstack/react-query': 'latest', 
-          'zod': 'latest'
+          '@trpc/client': '^11.0.0',
+          '@trpc/server': '^11.0.0',
+          '@trpc/react-query': '^11.0.0',
+          '@trpc/next': '^11.0.0',
+          '@tanstack/react-query': '^5.69.0', 
+          'zod': '^3.24.2'
         });
       }
 
@@ -283,28 +281,28 @@ async function main() {
       }
 
       if (orm.toLowerCase() === 'prisma') {
-        packageJson.devDependencies['prisma'] = 'latest';
-        packageJson.dependencies['@prisma/client'] = 'latest';
+        packageJson.devDependencies['prisma'] = '^6.6.0';
+        packageJson.dependencies['@prisma/client'] = '^6.6.0';
       }
 
       if (linter.toLowerCase() === 'eslint') {
         Object.assign(packageJson.devDependencies, {
-          'eslint': 'latest',
+          'eslint': '^9.24.0',
           'eslint-config-next': packageJson.dependencies.next
         });
         if (isTypescript) {
-          packageJson.devDependencies['@typescript-eslint/parser'] = 'latest';
+          packageJson.devDependencies['@typescript-eslint/parser'] = '^8.29.1';
         }
       } else { // Biome
-        packageJson.devDependencies['@biomejs/biome'] = 'latest';
+        packageJson.devDependencies['@biomejs/biome'] = '^1.3.3';
       }
 
       if (isTypescript) {
         Object.assign(packageJson.devDependencies, {
-          'typescript': 'latest',
-          '@types/react': 'latest',
-          '@types/node': 'latest',
-          '@types/react-dom': 'latest'
+          'typescript': '^5',
+          '@types/react': '^19.0.12',
+          '@types/node': '^20.17.28',
+          '@types/react-dom': '^19'
         });
       }
 

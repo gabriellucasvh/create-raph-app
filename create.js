@@ -262,6 +262,7 @@ async function main() {
       // Adiciona dependências condicionais
       if (useTailwind.toLowerCase() === 'sim') {
         packageJson.devDependencies['tailwindcss'] = '^4';
+        packageJson.devDependencies['autoprefixer'] = '^10';
         packageJson.devDependencies['@tailwindcss/postcss'] = '^4';
       }
 

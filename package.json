@@ -1,6 +1,6 @@
 {
     "name": "create-raph-app",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "description": "Gerador rápido de projetos Next.js com App Router e configurações comuns.",
     "bin": {
         "create-raph-app": "./create.js"

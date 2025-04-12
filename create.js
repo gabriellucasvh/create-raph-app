@@ -159,7 +159,7 @@ async function main() {
           choices: ['Typescript', 'Javascript'],
           default: flags.template?.toLowerCase() === 'typescript' ? 'Typescript' : 'Javascript',
           when: !flags.template
-        },        
+        },
         {
           type: 'list',
           name: 'useTailwind',
@@ -254,7 +254,7 @@ async function main() {
         dependencies: {
           'react': '^19.0.0',
           'react-dom': '^19.0.0',
-          'next': '^15.3.0' 
+          'next': '^15.3.0'
         },
         devDependencies: {}
       };
@@ -272,7 +272,7 @@ async function main() {
           '@trpc/server': '^11.0.0',
           '@trpc/react-query': '^11.0.0',
           '@trpc/next': '^11.0.0',
-          '@tanstack/react-query': '^5.69.0', 
+          '@tanstack/react-query': '^5.69.0',
           'zod': '^3.24.2'
         });
       }
@@ -366,18 +366,60 @@ export default function RootLayout({ children }) {`}
       fs.writeFileSync(path.join(appDir, `layout.${extension}`), layoutContent);
 
       // Criando src/app/page.tsx ou jsx
-      const pageContent = `export default function Home() {
+      const pageContent = `
+import Link from "next/link"
+
+export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold">
-        Bem-vindo ao ${theme.primary(projectName)}!
-      </h1>
-      <p className="mt-4 text-lg text-center">
-        Comece editando ${theme.secondary('src/app/page.' + extension)}
-      </p>
+    <main className="min-h-screen bg-black text-white px-8 py-16">
+      <section className="max-w-4xl mx-auto text-center mb-20">
+        <div className="relative inline-block">
+          <div className="absolute -inset-1 bg-yellow-400/30 blur-2xl rounded-xl"></div>
+          <h1 className="relative text-5xl md:text-6xl font-bold text-yellow-400 drop-shadow-lg">
+            Bem-vindo!
+          </h1>
+        </div>
+        <p className="mt-6 text-lg text-gray-300">
+          Ambiente criado com <Link href="https://raph1.vercel.app/" target="_blank" className="font-semibold text-yellow-400 animate-pulse">Create Raph App 🐈</Link>
+        </p>
+      </section>
+      <section className="max-w-4xl mx-auto mb-20">
+        <div className="bg-zinc-950 border border-yellow-500/10 rounded-2xl p-6 shadow-xl shadow-yellow-500/5 hover:shadow-yellow-400/10 transition-all">
+          <h2 className="text-2xl font-bold mb-4">Primeiros Passos</h2>
+          <p className="text-gray-300 mb-6">
+            Edite <code className="bg-black px-2 py-1 rounded text-yellow-400">src/app/page.tsx</code> e salve.
+          </p>
+          <Link
+            href="https://nextjs.org/docs"
+            target="_blank"
+            className="text-yellow-400 hover:text-yellow-300 transition-colors underline"
+          >
+            Ver documentação do Next.js →
+          </Link>
+        </div>
+      </section>
+      <section className="max-w-4xl mx-auto bg-zinc-950 border border-yellow-500/10 rounded-2xl p-6 shadow-xl shadow-yellow-500/5">
+        <h2 className="text-2xl font-bold mb-6">Comandos Disponíveis</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            { cmd: "npm run dev", desc: "Inicia o servidor de desenvolvimento" },
+            { cmd: "npm run build", desc: "Gera o build para produção" },
+            { cmd: "npm run lint", desc: "Executa análise de lint" }
+          ].map(({ cmd, desc }) => (
+            <div
+              key={cmd}
+              className="bg-black border border-zinc-800 rounded-xl p-4 shadow-inner shadow-yellow-400/5"
+            >
+              <code className="block font-mono text-yellow-400 mb-2">{cmd}</code>
+              <p className="text-sm text-gray-400">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
-  );
+  )
 }
+
 `;
       fs.writeFileSync(path.join(appDir, `page.${extension}`), pageContent);
 

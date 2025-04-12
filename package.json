@@ -1,0 +1,41 @@
+{
+    "name": "create-raph-app",
+    "version": "1.0.0",
+    "description": "Gerador rápido de projetos Next.js com App Router e configurações comuns.",
+    "bin": {
+      "create-raph-app": "./create.js"
+    },
+    "scripts": {
+    },
+    "dependencies": {
+      "chalk": "^5.3.0",         
+      "figlet": "^1.7.0",   
+      "gradient-string": "^2.0.2",
+      "inquirer": "^9.2.20",    
+      "ora": "^8.0.1"         
+    },
+    "devDependencies": {
+    },
+    "engines": {
+      "node": ">=18.0.0"
+    },
+    "keywords": [ 
+      "nextjs",
+      "cli",
+      "generator",
+      "scaffolding",
+      "app router",
+      "react",
+      "raph"
+    ],
+    "author": "Seu Nome <seu.email@exemplo.com>", 
+    "license": "MIT", 
+    "repository": { 
+      "type": "git",
+      "url": "git+https://github.com/seu-usuario/create-raph-app.git" 
+    },
+    "bugs": {
+      "url": "https://github.com/seu-usuario/create-raph-app/issues" 
+    },
+    "homepage": "https://github.com/seu-usuario/create-raph-app#readme" 
+  }

@@ -81,6 +81,23 @@ async function initializeCli() {
 
 // Função principal da CLI (já era async)
 async function main() {
+  const cliArgs = process.argv.slice(2);
+
+  const flags = {
+    offline: cliArgs.includes('--offline'),
+    template: null,
+    projectName: null
+  };
+
+  cliArgs.forEach((arg, i) => {
+    if (!arg.startsWith('--') && !flags.projectName) {
+      flags.projectName = arg;
+    }
+    if (arg === '--template') {
+      flags.template = cliArgs[i + 1];
+    }
+  });
+
   // Importações dinâmicas (como já estavam corretas)
   const { default: chalk } = await import('chalk');
   const { default: inquirer } = await import('inquirer');
@@ -131,15 +148,18 @@ async function main() {
           type: 'input',
           name: 'projectName',
           message: theme.primary('Nome do projeto:'),
-          validate: (input) => input ? true : 'Por favor, informe um nome para o projeto.'
+          default: flags.projectName || undefined,
+          when: !flags.projectName,
+          validate: input => input ? true : 'Por favor, informe um nome para o projeto.'
         },
         {
           type: 'list',
           name: 'language',
           message: theme.primary('Qual linguagem deseja usar?'),
           choices: ['Typescript', 'Javascript'],
-          default: 'Typescript'
-        },
+          default: flags.template?.toLowerCase() === 'typescript' ? 'Typescript' : 'Javascript',
+          when: !flags.template
+        },        
         {
           type: 'list',
           name: 'useTailwind',
@@ -884,7 +904,7 @@ Thumbs.db
       // --- Instalar Dependências do Projeto ---
       spinner.start(theme.primary(`Instalando dependências do projeto (${packageManager} install)... Isso pode levar alguns minutos...`));
       try {
-        execSync(`${packageManager} install`, { cwd: projectDir, stdio: 'inherit' });
+        execSync(`${packageManager} install${flags.offline ? ' --offline' : ''}`, { cwd: projectDir, stdio: 'inherit' });
         spinner.succeed(theme.success('📦 Dependências do projeto instaladas!'));
       } catch (error) {
         spinner.fail(theme.error(`❌ Falha ao instalar dependências com ${packageManager}. Execute manualmente:`));

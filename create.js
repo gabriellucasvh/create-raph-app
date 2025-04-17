@@ -256,7 +256,8 @@ async function main() {
           'react-dom': '^19.0.0',
           'next': '^15.3.0'
         },
-        devDependencies: {}
+        devDependencies: {},
+        framework: { name: 'next' }
       };
 
       // Adiciona dependências condicionais
@@ -312,6 +313,19 @@ async function main() {
         JSON.stringify(packageJson, null, 2)
       );
       spinner.succeed(theme.success('📄 package.json configurado'));
+
+      // Cria o next.config.js para garantir detecção por bibliotecas como shadcn/ui
+      const nextConfig = `/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+};
+
+module.exports = nextConfig;
+`;
+      fs.writeFileSync(path.join(projectDir, 'next.config.js'), nextConfig);
+
 
       // --- Criação da Estrutura de Pastas (App Router) ---
       spinner.start(theme.primary('Criando estrutura de diretórios (App Router)...'));

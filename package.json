@@ -29,10 +29,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/seu-usuario/create-raph-app.git"
+        "url": "git+https://github.com/gabriellucasvh/create-raph-app.git"
     },
     "bugs": {
-        "url": "https://github.com/seu-usuario/create-raph-app/issues"
+        "url": "https://github.com/gabriellucasvh/create-raph-app/issues"
     },
-    "homepage": "https://github.com/seu-usuario/create-raph-app#readme"
+    "homepage": "https://github.com/gabriellucasvh/create-raph-app#readme"
 }

@@ -157,7 +157,7 @@ async function main() {
           name: 'language',
           message: theme.primary('Qual linguagem deseja usar?'),
           choices: ['Typescript', 'Javascript'],
-          default: flags.template?.toLowerCase() === 'typescript' ? 'Typescript' : 'Javascript',
+          default: 'Typescript',
           when: !flags.template
         },
         {
@@ -172,7 +172,7 @@ async function main() {
           name: 'useTRPC',
           message: theme.primary('Usar tRPC?'),
           choices: ['Sim', 'Não'],
-          default: 'Não'
+          default: 'Sim'
         },
         {
           type: 'list',

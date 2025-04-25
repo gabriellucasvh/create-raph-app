@@ -3,7 +3,10 @@
     "version": "3.3.4",
     "description": "Gerador rápido de projetos Next.js com App Router e configurações comuns.",
     "bin": {
-        "create-raph-app": "./create.js"
+        "create-raph-app": "./src/cli.js"
+    },
+    "exports": {
+        ".": "./src/cli.js"
     },
     "scripts": {},
     "dependencies": {
@@ -25,7 +28,7 @@
         "react",
         "raph"
     ],
-    "author": "Gabriel <gabriellucasvh@exemplo.com>",
+    "author": "Gabriel <gabriellucasvh@gmail.com>",
     "license": "MIT",
     "repository": {
         "type": "git",

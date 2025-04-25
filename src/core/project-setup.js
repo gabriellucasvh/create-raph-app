@@ -344,21 +344,30 @@ export default function AuthProvider({ children }) {
     // --- Instalação de Dependências --- 
     if (!flags.offline) {
       await installDependencies(projectDir, packageManager, spinner, theme);
+
+      // --- Geração do Cliente Prisma (APÓS instalar dependências) ---
+      if (orm.toLowerCase() === 'prisma') {
+        spinner.start(theme.primary('Gerando cliente Prisma...'));
+        try {
+          // Determina o comando npx correto baseado no packageManager
+          const prismaGenerateCommand = packageManager === 'yarn' ? 'yarn prisma generate'
+                                      : packageManager === 'pnpm' ? 'pnpm prisma generate'
+                                      : packageManager === 'bun' ? 'bunx prisma generate' // bun usa bunx
+                                      : 'npx prisma generate';
+          execSync(prismaGenerateCommand, { cwd: projectDir, stdio: 'pipe' });
+          spinner.succeed(theme.success('🧬 Cliente Prisma gerado'));
+        } catch (prismaError) {
+          spinner.fail(theme.error('Falha ao gerar o cliente Prisma.'));
+          console.error(theme.dim(prismaError.stderr ? prismaError.stderr.toString() : prismaError.message));
+          console.log(theme.info(`Você pode precisar executar 'npx prisma generate' manualmente em '${projectName}'.`));
+          // Considerar se deve parar o processo ou continuar
+        }
+      }
+
     } else {
       console.log(theme.info('\nSkipping dependency installation due to --offline flag.'));
-    }
-
-    // --- Executar Prisma Generate (se Prisma foi escolhido) ---
-    if (orm.toLowerCase() === 'prisma' && !flags.offline) {
-      spinner.start(theme.primary('Executando Prisma Generate...'));
-      try {
-        // Executa dentro do diretório do projeto recém-criado
-        execSync(`npx prisma generate`, { cwd: projectDir, stdio: 'inherit' }); // Mostra a saída do comando
-        spinner.succeed(theme.success('🧬 Prisma Client gerado'));
-      } catch (prismaError) {
-        spinner.fail(theme.error('Falha ao executar Prisma Generate. Verifique o schema e as dependências.'));
-        console.error(theme.dim(prismaError.message));
-        // Considerar se deve parar o processo ou apenas avisar
+      if (orm.toLowerCase() === 'prisma') {
+         console.log(theme.info(`Lembre-se de executar 'npx prisma generate' após instalar as dependências manualmente.`));
       }
     }
 

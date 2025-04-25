@@ -88,17 +88,19 @@ function generatePackageJson(answers) {
 
 async function installDependencies(projectDir, packageManager, spinner, theme) {
   spinner.start(theme.primary(`Instalando dependências com ${packageManager}...`));
-  const installCommand = packageManager === 'yarn' ? 'yarn install' 
-                       : packageManager === 'pnpm' ? 'pnpm install' 
-                       : packageManager === 'bun' ? 'bun install' 
-                       : 'npm install';
+  // Adiciona a flag --ignore-scripts para evitar execução automática do prisma generate
+  const installCommand = packageManager === 'yarn' ? 'yarn install --ignore-scripts'
+                       : packageManager === 'pnpm' ? 'pnpm install --ignore-scripts'
+                       : packageManager === 'bun' ? 'bun install --ignore-scripts'
+                       : 'npm install --ignore-scripts';
   try {
     execSync(installCommand, { cwd: projectDir, stdio: 'pipe' }); // Instala tudo do package.json
     spinner.succeed(theme.success(`📦 Dependências instaladas com ${packageManager}`));
   } catch (error) {
     spinner.fail(theme.error(`Falha ao instalar dependências com ${packageManager}.`));
     console.error(theme.dim(error.stderr ? error.stderr.toString() : error.message));
-    console.log(theme.info(`Por favor, execute '${installCommand}' manualmente no diretório '${path.basename(projectDir)}'.`));
+    const manualInstallCommand = installCommand.replace(' --ignore-scripts', '');
+    console.log(theme.info(`Por favor, execute '${manualInstallCommand}' manualmente no diretório '${path.basename(projectDir)}'.`));
     // Não sair do processo, permitir que o usuário instale manualmente
   }
 }
